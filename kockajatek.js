@@ -96,7 +96,7 @@ function CreateDivs()
     CreateOneDivForFull(false,null,0,'minOneSix',`A hatos szám előfordulása körönként ${minOneSix} volt.`);
     CreateOneDivForFull(false,null,0,'allSix', `A hatos dobások összege ${sixCount} volt.`);
     CreateOneDivForFull(false,null,0,'threeSix',`${allWereSix ? "Volt" : "Nem volt"} olyan dobás ahol mind a három kocka 6-os volt.`);
-    CreateOneDivForFull(false,null,0,'allWereSameCount', `${parseInt(allWereSame)}` + ` alkalommal fordult elő, hogy minden szám ugyan az lett volna.`);
+    CreateOneDivForFull(false,null,0,'allWereSameCount', `${allWereSame}` + ` alkalommal fordult elő, hogy minden szám ugyanaz lett volna.`);
     CreateOneDivForFull(false,null,0,'twoPercent', `A kettesek százalékos megosztlása ${((twoCount / 60) * 100).toFixed(2)} százalék volt.`);
     CreateOneDivForFull(false,null,0,'fourPercent', `A négyesek százalékos megosztlása ${((fourCount / 60) * 100).toFixed(2)} százalék volt.`);
     CreateOneDivForFull(false,null,0,'sixPercent', `A hatosok százalékos megosztlása ${((sixCount / 60) * 100).toFixed(2)} százalék volt.`);
@@ -160,7 +160,7 @@ function CreateButton(id)
 {
     let div = document.createElement('div');
     div.className = 'center';
-    div.innerHTML = `<button id=${id} onclick="NewTurn()">Nyomja meg a gombot az új dobás sorozathoz</button>`;
+    div.innerHTML = `<button id=${id} onclick="NewTurn()">Nyomja meg a gombot az új dobássorozathoz</button>`;
     document.getElementById('fullDiv').appendChild(div);
 }
 //#endregion
