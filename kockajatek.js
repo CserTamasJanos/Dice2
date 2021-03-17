@@ -204,9 +204,41 @@ function CreateOwnParagrah(id)
     document.getElementById('fullDiv').appendChild(paragraph);
 }
 
+function CreateNavbar(id)
+{
+    var nav = document.createElement('NAV');
+    nav.id = id;
+    nav.className = 'nav navbar-light';
+    nav.style = 'background-color:rgb(220, 235, 255);';
+
+    var a = document.createElement('a');
+    a.id = `a${id}`;
+    a.className = 'navbar-brand';
+    a.href = "#";
+
+    var img = document.createElement('IMG');
+    img.id = `img${id}`;
+    img.src = 'Dice.JPG';
+    img.className = 'd-inline-block align-top';
+    img.alt = 'logo';
+    img.height = 60;
+    img.width = 230;
+
+/*     <nav class="nav navbar-light" style="background-color:rgb(220, 235, 255);" >
+        <a class="navbar-brand" href="#">
+          <img src="Dice.JPG" width="230" height="60" class="d-inline-block align-top" alt="">        
+        </a>
+      </nav> */
+
+    document.getElementById('fullDiv').appendChild(nav);
+    document.getElementById(nav.id).appendChild(a);
+    document.getElementById(a.id).appendChild(img);
+}
+
+
 function CreateDivs()
 {    
-    CreateOneDivForFull(false,null,0,'allAVG',"1",`Mennyi volt a dobások összegének átlaga?`,`A dobássorozat összegének átlaga:${allThrown/20}`);
+    CreateOneDivForFull(false,null,0,'allAVG',"1",`Mennyi volt a dobások összegének átlaga?`,`A dobássorozat összegének átlaga: ${allThrown/20}`);
     CreateOneDivForFull(false,null,0,'max', "2",`Mennyi volt a dobások összegének maximuma?`,`A dobások összegének maximuma ${max} volt.`),
     CreateOneDivForFull(false,null,0,'minOneSix',"3",`Hány dobásban fordult elő legalább egy 6-os szám?`,`A hatos szám előfordulása körönként ${minOneSix} volt.`);
     CreateOneDivForFull(false,null,0,'allSix',"4",`Hányszor fordult elő a 6-os szám a dobások során összesen?`,`A hatos dobások összege ${sixCount} volt.`);
@@ -299,7 +331,8 @@ function NewTurn()
     CLearFullDiv();
     TurnResults();
     CreateFullDiv();
-    CreateH1('mainTitle');
+    CreateNavbar('navbar');
+    //CreateH1('mainTitle');
     CreateOwnParagrah('mainText');
     CreateDivs();
     CreateButton('buttonNewTurn');
