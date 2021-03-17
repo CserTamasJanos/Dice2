@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Task Dice with Bootstrap</title>
 </head>
 <body>
     <div class="full" id="fullDiv">
         <h1 id="mainTitle">Kockajáték</h1>
 
-        <p>Ez az oldal egy 3 kockával elvégzett 20 dobássorozatak a statisztikáit mutatja.</p>
+        <p style="margin-top: 10px; margin-bottom: 10px; text-align: center;">Ez az oldal egy 3 kockával elvégzett 20 dobássorozatak a statisztikáit mutatja.</p>
         <script type="text/javascript" src="kockajatek.js"></script>
 
         <div class="center" >
-            <button id="buttonNewTurn" onclick="NewTurn()">Nyomja meg a gombot az új dobás sorozathoz</button>
+            <button id=${id} onclick="NewTurn()" type="button" class="btn btn-primary shadow-lg">Nyomja meg a gombot az új dobássorozathoz</button>
         </div>
     </div>
 </body>

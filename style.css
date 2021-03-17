@@ -1,39 +1,25 @@
 body{
-    background-color: rgb(242, 242, 242);
-    background-image: url("diceIMG2.jpg");
-    opacity: 85%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+    background-color: rgb(255, 255, 255);
 }
 .full{
     max-width: 700px;
+    min-width: 430px;
     margin: 0 auto;
-    background-color: rgb(191, 191, 191);
-    box-shadow: 2px 2px 2px 2px rgb(128, 128, 128);
+    background-color: rgb(241, 241, 241);
     padding-bottom: 20px;
-}
-.block{
-    background-color: rgb(230, 230, 230);
-    box-shadow: 2px 2px 2px 2px rgb(128, 128, 128);
-    width: 90%;
-    margin: 0 auto;
-    padding: 5px;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin-top: 20px;
+    border-radius: 2px;
+    margin-bottom: 20px;;
 }
 h1{
-    padding-left: 10px;
-    padding-top: 10px;
-    font-size: xx-large;
+    padding-left: 20px;
+    padding-top: 20px;;
 }
 p{
-    font-weight: bold;
-    text-align: center;
+    margin: 0;
 }
 button{
     background-color: rgb(230, 230, 230);
-    box-shadow: 2px 2px 2px 2px rgb(128, 128, 128);  
     border: none;
 }
 .button.block{

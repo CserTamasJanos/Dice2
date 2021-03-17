@@ -71,6 +71,28 @@ function MoreThanOneAmounts()
     }
     return MTOA;
 }
+
+function SameSeries()
+{
+    var found = false;
+    
+    for(let i = 0; i < A.length; i++)    
+    {
+        var a = A[i];
+        var b = B[i];
+        var c = C[i];
+        var numbers = [A[i],B[i],C[i]]
+        numbers.sort();
+        for(let j = 1; j < A.length; j++)
+        {
+            var numbers2 = [A[j],B[j],C[j]];
+            numbers2.sort();
+            if(numbers[0] === numbers2[0] && numbers[1] === numbers2[2] && numbers[2] === numbers2[2]){found = true; j = i = A.length-1}
+        }
+    }
+    return found;
+}
+
 //#endregion
 
 //#region Claer and Create elements
@@ -89,29 +111,32 @@ function CreateFullDiv()
     document.body.appendChild(div);
 }
 
-function CreateDivs()
-{    
-    CreateOneDivForFull(false,null,0,'allAVG',`A dobássorozat összegének átlaga:${allThrown/20}`);
-    CreateOneDivForFull(false,null,0,'max', `A dobások összegének maximuma ${max} volt.`),
-    CreateOneDivForFull(false,null,0,'minOneSix',`A hatos szám előfordulása körönként ${minOneSix} volt.`);
-    CreateOneDivForFull(false,null,0,'allSix', `A hatos dobások összege ${sixCount} volt.`);
-    CreateOneDivForFull(false,null,0,'threeSix',`${allWereSix ? "Volt" : "Nem volt"} olyan dobás ahol mind a három kocka 6-os volt.`);
-    CreateOneDivForFull(false,null,0,'allWereSameCount', `${allWereSame}` + ` alkalommal fordult elő, hogy minden szám ugyanaz lett volna.`);
-    CreateOneDivForFull(false,null,0,'twoPercent', `A kettesek százalékos megosztlása ${((twoCount / 60) * 100).toFixed(2)} százalék volt.`);
-    CreateOneDivForFull(false,null,0,'fourPercent', `A négyesek százalékos megosztlása ${((fourCount / 60) * 100).toFixed(2)} százalék volt.`);
-    CreateOneDivForFull(false,null,0,'sixPercent', `A hatosok százalékos megosztlása ${((sixCount / 60) * 100).toFixed(2)} százalék volt.`);
-    CreateOneDivForFull(true,oneIsAsBIg,1,'oneIsAsNewDiv',`A következő dobásoknál fordult elő, hogy a legnagyobb szám a másik kettő összegével egyenlő volt:`);
-    CreateOneDivForFull(false,null,0,'lessThrownDice',`Az összes dobás közül a ${numberStatistics[LessThrownDice()].key} szám szerepelt a legkevesebbszer. (Az első legkisebb)`);
-    CreateOneDivForFull(true,MoreThanOneAmounts(),2,'moreThanOneAmounts',`A következő dobásösszegek szerepeltek többször mint egy:`);  
-}
-
-function CreateOneDivForFull(willBeLoop, givenArray, type, id, resultText)
+function CreateOneDivForFull(willBeLoop, givenArray, type, id, taskNumber, question, resultText)
 {
-    let div = document.createElement('div');
-    div.id = id;
-    div.className = 'block';
+    let divCard = document.createElement('div');
+    divCard.id = `card${id}`;
+    divCard.className = 'card text-white bg-primary mb-3 mx-auto shadow-lg';
+    divCard.style = "max-width: 25rem;";
+
+    let divCardHeader = document.createElement('div');
+    divCardHeader.id = `card-header${id}`;
+    divCardHeader.className = 'card-header';
+    divCardHeader.textContent = "Kocka Feladat " + taskNumber;
+
+    let divCardBody = document.createElement('div');
+    divCardBody.id = `cardBody${id}`;
+    divCardBody.className = 'card-body';
+
+    let h6 = document.createElement('h6');
+    h6.className = `card-title`;
+    h6.id = `card-title${id}`;
+    h6.textContent = question;
+    
+    let paragraph = document.createElement('p');
+    paragraph.id = `card-text${id}`;
+    paragraph.className = 'card-text';
+
     let data = ``;
-    var results = ``;
 
     if(willBeLoop)
     {
@@ -130,28 +155,33 @@ function CreateOneDivForFull(willBeLoop, givenArray, type, id, resultText)
 
                 if(i === 0)
                 {
-                    results = `<label id="${id}${i}" name="">${resultText}</label></br>`;  
+                    paragraph.textContent = resultText + '\n\n\n';
                 }
-                results += `<label id="${id}${i}" name="">${data}</label><br>`;
+                paragraph.textContent += " " + data + (i === givenArray.length -1 ? "" : " - ");
             }
         }
         else
         {
-            results = `<label id="${id}" name="">Nem volt a kérdésnek megfelelő adat.</label></br>`;
+            paragraph.textContent = `Nem volt a kérdésnek megfelelő adat.`;
         }
     }
     else
     {
-        results = `<label id=${id} name="">${resultText}</label>`;
+        paragraph.textContent = resultText;
     }
-    div.innerHTML = results;
-    document.getElementById('fullDiv').appendChild(div);
+
+    document.getElementById('fullDiv').appendChild(divCard);
+    document.getElementById(divCard.id).appendChild(divCardHeader);
+    document.getElementById(divCard.id).appendChild(divCardBody);
+    document.getElementById(divCardBody.id).appendChild(h6);
+    document.getElementById(divCardBody.id).appendChild(paragraph);
 }
 
 function CreateH1(id)
 {
     let h1 = document.createElement('h1');
     h1.id = id;
+    h1.className = 'h1';
     h1.innerText = "Kockajáték";
     document.getElementById('fullDiv').appendChild(h1);
 }
@@ -160,9 +190,38 @@ function CreateButton(id)
 {
     let div = document.createElement('div');
     div.className = 'center';
-    div.innerHTML = `<button id=${id} onclick="NewTurn()">Nyomja meg a gombot az új dobássorozathoz</button>`;
+    div.innerHTML = `<button id=${id} onclick="NewTurn()" type="button" class="btn btn-primary shadow-lg">Nyomja meg a gombot az új dobássorozathoz</button>`;
     document.getElementById('fullDiv').appendChild(div);
 }
+
+function CreateOwnParagrah(id)
+{
+    let paragraph = document.createElement('p');
+    paragraph.id = id;
+    paragraph.className = `p${id}`;
+    paragraph.textContent = "Ez az oldal egy 3 kockával elvégzett 20 dobássorozatak a statisztikáit mutatja.";
+    paragraph.style="margin-top: 10px; margin-bottom: 10px; text-align: center;";
+    document.getElementById('fullDiv').appendChild(paragraph);
+}
+
+function CreateDivs()
+{    
+    CreateOneDivForFull(false,null,0,'allAVG',"1",`Mennyi volt a dobások összegének átlaga?`,`A dobássorozat összegének átlaga:${allThrown/20}`);
+    CreateOneDivForFull(false,null,0,'max', "2",`Mennyi volt a dobások összegének maximuma?`,`A dobások összegének maximuma ${max} volt.`),
+    CreateOneDivForFull(false,null,0,'minOneSix',"3",`Hány dobásban fordult elő legalább egy 6-os szám?`,`A hatos szám előfordulása körönként ${minOneSix} volt.`);
+    CreateOneDivForFull(false,null,0,'allSix',"4",`Hányszor fordult elő a 6-os szám a dobások során összesen?`,`A hatos dobások összege ${sixCount} volt.`);
+    CreateOneDivForFull(false,null,0,'threeSix',"5",`Volt-e három 6-ost tartalmazó dobás?`,`${allWereSix ? "Volt" : "Nem volt"} olyan dobás ahol mind a három kocka 6-os volt.`);
+    CreateOneDivForFull(false,null,0,'allWereSameCount',"6",`Hányszor dobtunk mindhárom kockával azonos számot?`,`${allWereSame}` + ` alkalommal fordult elő, hogy minden szám ugyanaz lett volna.`);
+    CreateOneDivForFull(true,differentNumbers,2,'allWereDifferent',"7",`Melyik dobás eredményezett három különböző számot?`, `A következő számok voltak különbözőek:`,);
+    CreateOneDivForFull(false,null,0,'twoPercent',"8.1", `A dobások hány százalékában fordult elő valamelyik kockán 2-es?`,`A kettesek százalékos megosztlása ${((twoCount / 60) * 100).toFixed(2)} százalék volt.`);
+    CreateOneDivForFull(false,null,0,'fourPercent',"8.2",`A dobások hány százalékában fordult elő valamelyik kockán 4-es?`,`A négyesek százalékos megosztlása ${((fourCount / 60) * 100).toFixed(2)} százalék volt.`);
+    CreateOneDivForFull(false,null,0,'sixPercent',"8.3",`A dobások hány százalékában fordult elő valamelyik kockán 6-os?`,`A hatosok százalékos megosztlása ${((sixCount / 60) * 100).toFixed(2)} százalék volt.`);
+    CreateOneDivForFull(true,oneIsAsBIg,1,'oneIsAsNewDiv',"9",`Volt-e olyan dobás, amikor a legnagyobb számot mutató kocka értéke a másik két kocka értékének összege lett? Ha igen, mik voltak ezek a számok?`,`A következő dobásoknál fordult elő, hogy a legnagyobb szám a másik kettő összegével egyenlő volt:`);
+    CreateOneDivForFull(false,null,0,'lessThrownDice',"10",`Összesen melyik számot mutatták a legkevesebbszer a kockák?`,`Az összes dobás közül a ${numberStatistics[LessThrownDice()].key} szám szerepelt a legkevesebbszer. (Az első legkisebb)`);
+    CreateOneDivForFull(true,MoreThanOneAmounts(),2,"11",'moreThanOneAmounts',`Milyen összeg fordult elő többször is?`,`A következő dobásösszegek szerepeltek többször mint egy:`);
+    CreateOneDivForFull(false,null,0,'sameSeries',"12",`Voltak-e egymással egyező dobások? (A kockák sorrendje nem számít.)`,`${SameSeries() ? "Volt": "Nem volt"} olyan dobás ahol a számok megeggyeztek volna.`);
+}
+
 //#endregion
 
 //#region Main
@@ -170,8 +229,9 @@ var A = [];
 var B = [];
 var C = [];
 var oneIsAsBIg = [];
-var numberStatistics = [{key:1,value:0},{key:2,value:0},{key:3,value:0},{key:4,value:0},{key:5,value:0},{key:6,value:0}]
+var numberStatistics = [];
 var amounts = [];
+var differentNumbers = [];
 
 let allThrown = 0;
 let max = 0;
@@ -191,6 +251,7 @@ function TurnResults()
     oneIsAsBIg = [];
     numberStatistics = [{key:1,value:0},{key:2,value:0},{key:3,value:0},{key:4,value:0},{key:5,value:0},{key:6,value:0}]
     amounts = [];
+    differentNumbers = [];
     
     allThrown = 0;
     max = 0;
@@ -218,6 +279,8 @@ function TurnResults()
         CountSpecDNumber(A, i);
         CountSpecDNumber(B, i);
         CountSpecDNumber(C, i);
+
+        if(A[i] !== B[i] && A[i] !== C[i] && C[i] !== B[i]){differentNumbers.push(A[i] + " " + B[i] + " " + C[i])}; 
         
         if(temp !== sixCount){minOneSix++};
         allWereSix = allWereSix === false ? sixCount - temp === 3 : true;
@@ -237,6 +300,7 @@ function NewTurn()
     TurnResults();
     CreateFullDiv();
     CreateH1('mainTitle');
+    CreateOwnParagrah('mainText');
     CreateDivs();
     CreateButton('buttonNewTurn');
 }
