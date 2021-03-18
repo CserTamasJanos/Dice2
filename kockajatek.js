@@ -223,7 +223,7 @@ function CreateNavbar(id)
 
     var img = document.createElement('IMG');
     img.id = `img${id}`;
-    img.src = 'PatrikfeladatokLogo.jpg';
+    img.src = 'PatrikfeladatokLogo.JPG';
     img.className = 'd-inline-block align-top';
     img.alt = 'logo';
     img.height = 60;
