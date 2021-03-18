@@ -5,7 +5,7 @@ function CountSpecDNumber(diceArray, index)
         {twoCount++}else if(diceArray[index] === 4){fourCount++};
 }
 
-function OneIsAsBIgAsOthers(dOne, dTwo, dThree)
+function OneIsAsBigAsOthers(dOne, dTwo, dThree)
 {
     if(dOne > dTwo && dOne > dThree)
     {
@@ -120,7 +120,7 @@ function CreateOneDivForFull(willBeLoop, givenArray, type, id, taskNumber, quest
 
     let divCardBody = document.createElement('div');
     divCardBody.id = `card${id}`;
-    divCardBody.className = 'col-sm-4';
+    divCardBody.className = 'col-sm-4 mb-2';
 
     let h6 = document.createElement('h6');
     h6.className = `h6`;
@@ -330,7 +330,7 @@ function TurnResults()
         if(temp !== sixCount){minOneSix++};
         allWereSix = allWereSix === false ? sixCount - temp === 3 : true;
         if(Math.pow((A[i] * B[i] * C[i]),1/3) === A[i]){allWereSame++};
-        var tempOneIsAsBig = OneIsAsBIgAsOthers(A[i],B[i],C[i]);
+        var tempOneIsAsBig = OneIsAsBigAsOthers(A[i],B[i],C[i]);
         if(tempOneIsAsBig[0]){oneIsAsBIg.push(tempOneIsAsBig)}
         
         Statistic(A,i);
@@ -345,7 +345,7 @@ function NewTurn()
     TurnResults();
     CreateFullDiv();
     CreateNavbar('navbar');
-    CreateThemeParagraph('mainText','Ez az oldal egy 3 kockával elvégzett 20 dobássorozatak a statisztikáit mutatja.');
+    CreateThemeParagraph('mainText','Ez az oldal egy 3 kockával elvégzett 20 dobássorozatnak a statisztikáit mutatja.');
     CreateDivs();
     CreateButton('buttonNewTurn');
 }
