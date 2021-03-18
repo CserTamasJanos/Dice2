@@ -345,7 +345,7 @@ function NewTurn()
     TurnResults();
     CreateFullDiv();
     CreateNavbar('navbar');
-    CreateThemeParagraph('mainText','Ez az oldal egy 3 kockával elvégzett 20 dobássorozatnak a statisztikáit mutatja.');
+    CreateThemeParagraph('mainText','Ez az oldal egy 3 kockával elvégzett 20 dobássorozatnak a statisztikáit mutatja');
     CreateDivs();
     CreateButton('buttonNewTurn');
 }
